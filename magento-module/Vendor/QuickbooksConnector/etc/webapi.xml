@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * SOAP Web API Configuration
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- serverVersion -->
+    <route url="/V1/qbwc/serverVersion" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="serverVersion"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- clientVersion -->
+    <route url="/V1/qbwc/clientVersion" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="clientVersion"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- authenticate -->
+    <route url="/V1/qbwc/authenticate" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="authenticate"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- sendRequestXML -->
+    <route url="/V1/qbwc/sendRequestXML" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="sendRequestXML"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- receiveResponseXML -->
+    <route url="/V1/qbwc/receiveResponseXML" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="receiveResponseXML"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- closeConnection -->
+    <route url="/V1/qbwc/closeConnection" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="closeConnection"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- connectionError -->
+    <route url="/V1/qbwc/connectionError" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="connectionError"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- getLastError -->
+    <route url="/V1/qbwc/getLastError" method="POST">
+        <service class="Vendor\QuickbooksConnector\Api\QbwcServiceInterface" method="getLastError"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+</routes>
