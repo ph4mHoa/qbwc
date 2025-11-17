@@ -50,6 +50,40 @@
         </arguments>
     </type>
 
+    <!--
+    Callback System Configuration
+    Cloned from Rails: QBWC.session_initializer and QBWC.session_complete_success
+
+    To register custom callbacks, add them to the arrays below:
+    -->
+    <type name="Vendor\QuickbooksConnector\Model\CallbackManager">
+        <arguments>
+            <argument name="logger" xsi:type="object">QbwcLogger</argument>
+
+            <!-- Session Initializer Callbacks -->
+            <!-- Called AFTER authentication succeeds and jobs are pending -->
+            <!-- Uncomment examples below or add your own: -->
+            <argument name="sessionInitializers" xsi:type="array">
+                <!-- Example: Logging session start -->
+                <!-- <item name="logging" xsi:type="object">Vendor\QuickbooksConnector\Model\Callback\Example\LoggingSessionInitializer</item> -->
+
+                <!-- Add your custom initializers here -->
+                <!-- <item name="custom_init" xsi:type="object">YourVendor\YourModule\Model\CustomSessionInitializer</item> -->
+            </argument>
+
+            <!-- Session Complete Callbacks -->
+            <!-- Called WHEN session completes all jobs without errors -->
+            <!-- Uncomment examples below or add your own: -->
+            <argument name="sessionCompleteHandlers" xsi:type="array">
+                <!-- Example: Notification on completion -->
+                <!-- <item name="notification" xsi:type="object">Vendor\QuickbooksConnector\Model\Callback\Example\NotificationSessionComplete</item> -->
+
+                <!-- Add your custom handlers here -->
+                <!-- <item name="custom_complete" xsi:type="object">YourVendor\YourModule\Model\CustomSessionComplete</item> -->
+            </argument>
+        </arguments>
+    </type>
+
     <!-- Console Commands -->
     <type name="Magento\Framework\Console\CommandList">
         <arguments>

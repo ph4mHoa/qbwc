@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Frontend Routes Configuration
+ *
+ * Defines public routes for QWC file download
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="qbwc" frontName="qbwc">
+            <module name="Vendor_QuickbooksConnector" />
+        </route>
+    </router>
+</config>
