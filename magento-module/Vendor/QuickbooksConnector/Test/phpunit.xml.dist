@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="./bootstrap.php"
+         colors="true"
+         verbose="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Vendor QuickBooks Connector Unit Tests">
+            <directory>./Unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">../Model</directory>
+            <directory suffix=".php">../Controller</directory>
+            <directory suffix=".php">../Api</directory>
+        </include>
+        <exclude>
+            <directory>../Test</directory>
+            <directory>../vendor</directory>
+        </exclude>
+        <report>
+            <html outputDirectory="./coverage/html"/>
+            <clover outputFile="./coverage/clover.xml"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
+    </coverage>
+
+    <php>
+        <ini name="date.timezone" value="UTC"/>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="memory_limit" value="-1"/>
+    </php>
+
+    <logging>
+        <testdoxHtml outputFile="./coverage/testdox.html"/>
+        <testdoxText outputFile="./coverage/testdox.txt"/>
+    </logging>
+</phpunit>
