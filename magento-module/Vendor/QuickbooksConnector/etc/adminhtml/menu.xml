@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Admin Menu Configuration
+ *
+ * Creates menu: QuickBooks → Jobs, Sessions, Configuration
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- Main QuickBooks Menu -->
+        <add id="Vendor_QuickbooksConnector::qbwc"
+             title="QuickBooks"
+             module="Vendor_QuickbooksConnector"
+             sortOrder="80"
+             resource="Vendor_QuickbooksConnector::qbwc"/>
+
+        <!-- Jobs Submenu -->
+        <add id="Vendor_QuickbooksConnector::jobs"
+             title="Jobs"
+             module="Vendor_QuickbooksConnector"
+             sortOrder="10"
+             parent="Vendor_QuickbooksConnector::qbwc"
+             action="qbwc/job/index"
+             resource="Vendor_QuickbooksConnector::jobs"/>
+
+        <!-- Sessions Submenu -->
+        <add id="Vendor_QuickbooksConnector::sessions"
+             title="Sessions"
+             module="Vendor_QuickbooksConnector"
+             sortOrder="20"
+             parent="Vendor_QuickbooksConnector::qbwc"
+             action="qbwc/session/index"
+             resource="Vendor_QuickbooksConnector::sessions"/>
+
+        <!-- Configuration Submenu -->
+        <add id="Vendor_QuickbooksConnector::config"
+             title="Configuration"
+             module="Vendor_QuickbooksConnector"
+             sortOrder="30"
+             parent="Vendor_QuickbooksConnector::qbwc"
+             action="adminhtml/system_config/edit/section/qbwc"
+             resource="Vendor_QuickbooksConnector::config"/>
+    </menu>
+</config>

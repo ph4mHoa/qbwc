@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Job Grid UI Component
+ *
+ * Defines columns, filters, and actions for job grid
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">qbwc_job_listing.qbwc_job_listing_data_source</item>
+        </item>
+    </argument>
+
+    <!-- Data Source -->
+    <dataSource name="qbwc_job_listing_data_source">
+        <argument name="class" xsi:type="string">Vendor\QuickbooksConnector\Ui\Component\Listing\Job\DataProvider</argument>
+        <argument name="name" xsi:type="string">qbwc_job_listing_data_source</argument>
+        <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+        <argument name="requestFieldName" xsi:type="string">id</argument>
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                <item name="storageConfig" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <!-- Listing Toolbar -->
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <!-- Columns -->
+    <columns name="qbwc_job_columns">
+        <!-- ID Column -->
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+
+        <!-- Name Column -->
+        <column name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Job Name</item>
+                </item>
+            </argument>
+        </column>
+
+        <!-- Company Column -->
+        <column name="company">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Company</item>
+                </item>
+            </argument>
+        </column>
+
+        <!-- Enabled Column -->
+        <column name="enabled" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Enabled</label>
+            </settings>
+        </column>
+
+        <!-- Worker Class Column -->
+        <column name="worker_class">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Worker Class</item>
+                </item>
+            </argument>
+        </column>
+
+        <!-- Created Column -->
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created</label>
+            </settings>
+        </column>
+    </columns>
+</listing>
