@@ -17,6 +17,7 @@ use Vendor\QuickbooksConnector\Api\JobRepositoryInterface;
 use Vendor\QuickbooksConnector\Api\Data\SessionInterfaceFactory;
 use Vendor\QuickbooksConnector\Model\Config;
 use Vendor\QuickbooksConnector\Model\Request;
+use Vendor\QuickbooksConnector\Model\CallbackManager;
 use Psr\Log\LoggerInterface;
 
 class QbwcService implements QbwcServiceInterface
@@ -59,6 +60,11 @@ class QbwcService implements QbwcServiceInterface
     private $qbxmlParser;
 
     /**
+     * @var CallbackManager
+     */
+    private $callbackManager;
+
+    /**
      * Constructor
      *
      * @param SessionRepositoryInterface $sessionRepository
@@ -66,6 +72,7 @@ class QbwcService implements QbwcServiceInterface
      * @param SessionInterfaceFactory $sessionFactory
      * @param Config $config
      * @param QbxmlParser $qbxmlParser
+     * @param CallbackManager $callbackManager
      * @param LoggerInterface $logger
      */
     public function __construct(
@@ -74,6 +81,7 @@ class QbwcService implements QbwcServiceInterface
         SessionInterfaceFactory $sessionFactory,
         Config $config,
         QbxmlParser $qbxmlParser,
+        CallbackManager $callbackManager,
         LoggerInterface $logger
     ) {
         $this->sessionRepository = $sessionRepository;
@@ -81,6 +89,7 @@ class QbwcService implements QbwcServiceInterface
         $this->sessionFactory = $sessionFactory;
         $this->config = $config;
         $this->qbxmlParser = $qbxmlParser;
+        $this->callbackManager = $callbackManager;
         $this->logger = $logger;
     }
 
@@ -163,6 +172,11 @@ class QbwcService implements QbwcServiceInterface
             "Authentication of user '{$username}' succeeded, " .
             count($pendingJobs) . " jobs pending for '{$companyFilePath}'."
         );
+
+        // Invoke session initializer callbacks
+        // Cloned from Rails: lib/qbwc/controller.rb:127
+        // QBWC.session_initializer.call(session) unless QBWC.session_initializer.nil?
+        $this->callbackManager->invokeSessionInitializers($session);
 
         return [$ticket, $companyFilePath];
     }
@@ -486,6 +500,16 @@ class QbwcService implements QbwcServiceInterface
             $session->setCurrentJob(null);
             $session->setPendingJobsArray([]);
             $session->setProgress(100);
+
+            // Invoke session complete callbacks (only if no errors)
+            // Cloned from Rails: lib/qbwc/session.rb:128-130
+            // def complete_with_success
+            //   QBWC.session_complete_success.call(self) if QBWC.session_complete_success
+            // end
+            if (!$session->hasError()) {
+                $this->callbackManager->invokeSessionComplete($session);
+            }
+
             $this->logger->info('All jobs completed');
         } else {
             // Move to next job
