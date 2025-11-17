@@ -1,0 +1,27 @@
+parameters:
+    level: 5
+    paths:
+        - magento-module/Vendor/QuickbooksConnector/Model
+        - magento-module/Vendor/QuickbooksConnector/Controller
+        - magento-module/Vendor/QuickbooksConnector/Api
+
+    excludePaths:
+        - magento-module/Vendor/QuickbooksConnector/Test
+
+    # Ignore Magento framework classes that might not be available
+    bootstrapFiles:
+        - magento-module/Vendor/QuickbooksConnector/Test/bootstrap.php
+
+    ignoreErrors:
+        # Ignore missing Magento classes during analysis
+        - '#Class Magento\\Framework\\.*not found#'
+        - '#Class Psr\\Log\\.*not found#'
+        - '#Access to an undefined property.*\$_.*#'
+        - '#Call to an undefined method.*parent::.*#'
+
+    # Custom rules
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
+    # Report format
+    reportUnmatchedIgnoredErrors: false
