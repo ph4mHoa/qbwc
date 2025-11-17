@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * System Configuration
+ *
+ * Admin panel configuration at: Stores → Configuration → Services → QuickBooks Web Connector
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="service" translate="label" sortOrder="400">
+            <label>Services</label>
+        </tab>
+
+        <section id="qbwc" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>QuickBooks Web Connector</label>
+            <tab>service</tab>
+            <resource>Vendor_QuickbooksConnector::config</resource>
+
+            <!-- General Settings -->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable QuickBooks Web Connector integration</comment>
+                </field>
+
+                <field id="app_name" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Name</label>
+                    <comment>Shown in QuickBooks Web Connector</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="app_description" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Description</label>
+                    <comment>Description shown in QuickBooks Web Connector</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="company_file" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Company File Path</label>
+                    <comment>Path to QuickBooks company file (leave empty for any open file)</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="support_url" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Support URL</label>
+                    <comment>Support website URL shown in QWC file</comment>
+                    <validate>validate-url</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="run_every_n_minutes" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Run Every N Minutes</label>
+                    <comment>Auto-run interval (leave empty for manual only). Recommended: 60</comment>
+                    <validate>validate-digits validate-digits-range digits-range-1-1440</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="owner_id" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Owner ID (GUID)</label>
+                    <comment>Unique owner GUID. Leave default unless you know what you're doing.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="file_id" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>File ID (GUID)</label>
+                    <comment>Unique file GUID. Leave default unless you know what you're doing.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- Authentication -->
+            <group id="auth" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Authentication</label>
+
+                <field id="username" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Username</label>
+                    <comment>Username for QuickBooks Web Connector authentication</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="password" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                    <comment>Password for QuickBooks Web Connector authentication</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- Advanced Settings -->
+            <group id="advanced" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Advanced Settings</label>
+
+                <field id="server_version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Server Version</label>
+                    <comment>Server version returned to QBWC. Default: 1.0.0</comment>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="min_client_version" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Client Version</label>
+                    <comment>Minimum required QBWC version (leave empty for no restriction)</comment>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="supported_client_version" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Supported Client Version</label>
+                    <comment>Recommended QBWC version. Default: 2.3.0.30</comment>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="continue_on_error" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Continue On Error</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Continue processing next request if current request fails</comment>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- Logging -->
+            <group id="logging" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Logging</label>
+
+                <field id="log_requests_and_responses" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Log Requests and Responses</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Log full QBXML requests and responses (useful for debugging, may contain sensitive data)</comment>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- Download QWC -->
+            <group id="download" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>QWC File Download</label>
+
+                <field id="qwc_download_link" translate="label comment" type="note" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Download QWC File</label>
+                    <comment><![CDATA[<a href="/qbwc/qwc/download" target="_blank">Click here to download the QWC configuration file</a>. Install this file in QuickBooks Web Connector.]]></comment>
+                    <depends>
+                        <field id="qbwc/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

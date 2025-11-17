@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Admin Routes Configuration
+ *
+ * Defines admin routes for Job and Session controllers
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="qbwc" frontName="qbwc">
+            <module name="Vendor_QuickbooksConnector" before="Magento_Backend"/>
+        </route>
+    </router>
+</config>
