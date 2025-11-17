@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Database Schema Declaration
+ *
+ * @category  Vendor
+ * @package   Vendor_QuickbooksConnector
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!-- Sessions Table -->
+    <table name="qbwc_sessions" resource="default" engine="innodb" comment="QBWC Sessions">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="ticket" nullable="false" length="255"
+                comment="Session Ticket"/>
+        <column xsi:type="varchar" name="user" nullable="false" length="255"
+                comment="User Name"/>
+        <column xsi:type="varchar" name="company" nullable="false" length="1000"
+                comment="Company File Path"/>
+        <column xsi:type="int" name="progress" unsigned="true" nullable="false" default="0"
+                comment="Progress Percentage"/>
+        <column xsi:type="varchar" name="current_job" nullable="true" length="255"
+                comment="Current Job Name"/>
+        <column xsi:type="text" name="pending_jobs" nullable="true"
+                comment="Pending Jobs (JSON)"/>
+        <column xsi:type="varchar" name="iterator_id" nullable="true" length="255"
+                comment="Iterator ID"/>
+        <column xsi:type="text" name="error" nullable="true"
+                comment="Error Message"/>
+        <column xsi:type="varchar" name="status_code" nullable="true" length="50"
+                comment="Status Code"/>
+        <column xsi:type="varchar" name="status_severity" nullable="true" length="50"
+                comment="Status Severity"/>
+        <column xsi:type="int" name="initial_job_count" unsigned="true" nullable="false" default="0"
+                comment="Initial Job Count"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                on_update="true" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="QBWC_SESSIONS_TICKET">
+            <column name="ticket"/>
+        </constraint>
+
+        <index referenceId="QBWC_SESSIONS_USER" indexType="btree">
+            <column name="user"/>
+        </index>
+        <index referenceId="QBWC_SESSIONS_COMPANY" indexType="btree">
+            <column name="company"/>
+        </index>
+        <index referenceId="QBWC_SESSIONS_CREATED" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+
+    <!-- Jobs Table -->
+    <table name="qbwc_jobs" resource="default" engine="innodb" comment="QBWC Jobs">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255"
+                comment="Job Name"/>
+        <column xsi:type="varchar" name="company" nullable="false" length="1000"
+                comment="Company File Path"/>
+        <column xsi:type="varchar" name="worker_class" nullable="false" length="255"
+                comment="Worker Class"/>
+        <column xsi:type="boolean" name="enabled" nullable="false" default="true"
+                comment="Is Enabled"/>
+        <column xsi:type="text" name="request_index" nullable="true"
+                comment="Request Index (JSON)"/>
+        <column xsi:type="text" name="requests" nullable="true"
+                comment="Requests (JSON)"/>
+        <column xsi:type="boolean" name="requests_provided_when_job_added" nullable="false" default="false"
+                comment="Requests Provided When Job Added"/>
+        <column xsi:type="text" name="data" nullable="true"
+                comment="Job Data (JSON)"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                on_update="true" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="QBWC_JOBS_NAME">
+            <column name="name"/>
+        </constraint>
+
+        <index referenceId="QBWC_JOBS_COMPANY" indexType="btree">
+            <column name="company"/>
+        </index>
+        <index referenceId="QBWC_JOBS_ENABLED" indexType="btree">
+            <column name="enabled"/>
+        </index>
+        <index referenceId="QBWC_JOBS_COMPANY_ENABLED" indexType="btree">
+            <column name="company"/>
+            <column name="enabled"/>
+        </index>
+        <index referenceId="QBWC_JOBS_CREATED" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+
+</schema>
