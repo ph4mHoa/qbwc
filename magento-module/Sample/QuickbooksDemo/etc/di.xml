@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dependency Injection Configuration
+ *
+ * @category  Sample
+ * @package   Sample_QuickbooksDemo
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Preference for Job Manager Interface -->
+    <preference for="Sample\QuickbooksDemo\Api\JobManagerInterface"
+                type="Sample\QuickbooksDemo\Model\JobManager"/>
+
+    <!-- Console Commands -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="sample_qb_customer_sync" xsi:type="object">Sample\QuickbooksDemo\Console\Command\CustomerSyncCommand</item>
+                <item name="sample_qb_invoice_sync" xsi:type="object">Sample\QuickbooksDemo\Console\Command\InvoiceSyncCommand</item>
+                <item name="sample_qb_product_query" xsi:type="object">Sample\QuickbooksDemo\Console\Command\ProductQueryCommand</item>
+                <item name="sample_qb_job_list" xsi:type="object">Sample\QuickbooksDemo\Console\Command\JobListCommand</item>
+                <item name="sample_qb_job_create" xsi:type="object">Sample\QuickbooksDemo\Console\Command\JobCreateCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Logger Configuration -->
+    <type name="Sample\QuickbooksDemo\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Sample\QuickbooksDemo\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">quickbooks_demo</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Sample\QuickbooksDemo\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
