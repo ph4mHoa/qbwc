@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "qbwc": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/qbwc-mcp-server/build/index.js"
+      ],
+      "env": {
+        "QBWC_LOG_PATH": "/absolute/path/to/rails/log/qbwc_structured.log",
+        "QBWC_DB_PATH": "/absolute/path/to/qbwc-mcp-server/qbwc_mcp.db"
+      }
+    }
+  }
+}
